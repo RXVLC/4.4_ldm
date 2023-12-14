@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4.4</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%; /* Ajusta el ancho del formulario */
+        }
+        fieldset {
+            width: 100%; /* Ajusta el ancho del fieldset al contenedor */
+            margin-bottom: 20px; /* Espacio entre fieldsets */
+        }
+        .datosPersonales, .presents, .where {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <h1 style="color: red;">Carta para Papá Noel</h1>
+
+        <fieldset>
+            <legend>Datos Personales</legend>
+            <div class="datosPersonales">
+                <label for="Nombre">Nombre: </label><input type="text" name="Nombre" id="name"> <br><br>
+                <label for="apellidos">Apellidos: </label><input type="text" name="surname" id="surname"><br><br>
+                <label for="fechaNacimiento">Fecha de Nacimiento: </label><input type="date" name="borndate" id="borndate"><br><br>
+                <label for="genero">Género: </label>
+                <select name="gender" id="gender">
+                    <option value="masculino">Masculino</option>
+                    <option value="femenino">Femenino</option>
+                    <option value="otro">Otro</option>
+                </select><br><br>
+                <label for="direccion">Dirección: </label><input type="text" name="direction" id="direction"><br><br>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Regalos</legend>
+            <div class="presents">
+                <label for="present1">Regalo 1: </label>
+                <select name="present1" id="present1">
+                    <option value="">Selecciona un regalo</option>
+                    <option value="balon">Balón</option>
+                    <option value="bicicleta">Bicicleta</option>
+                    <option value="barco">Barco Pirata</option>
+                </select><br><br>
+                <label for="present2">Regalo 2: </label> 
+                <select name="present2" id="present2">
+                    <option value="">Selecciona un regalo</option>
+                    <option value="castillo">Castillo Medieval</option>
+                    <option value="tambor">Tambor</option>
+                </select>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>¿Dónde quieres recibir el regalo?</legend>
+            <div class="where">
+                <input type="radio" id="enCasa" name="deliveryLocation" value="enCasa">
+                <label for="enCasa">En casa</label><br>
+                <input type="radio" id="enCasaAbuelos" name="deliveryLocation" value="enCasaAbuelos">
+                <label for="enCasaAbuelos">En casa de los abuelos</label><br>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Mensaje de Papá Noel</legend>
+            <div class="congrats" id="greeting">
+                Querido [Nombre del niño], espero que te portes muy bien este año. ¡Felices fiestas y que se cumplan todos tus deseos! 🎅🎁🎄
+            </div>
+        </fieldset>
+    </form>
+
+    <!-- chorradas mías -->
+    <script>
+        // Obtener el campo de nombre y el elemento del mensaje de Papá Noel
+        const nombreInput = document.getElementById('name');
+        const mensajePapaNoel = document.getElementById('greeting');
+
+        // Función para generar el mensaje
+        function generarMensaje() {
+            // Obtener el valor ingresado en el campo de nombre
+            const nombre = nombreInput.value.trim();
+
+            // Mostrar el mensaje de Papá Noel con el nombre
+            if (nombre !== null) {
+                mensajePapaNoel.textContent = `Querido ${nombre}, espero que te portes muy bien este año. ¡Felices fiestas y que se cumplan todos tus deseos! 🎅🎁🎄`;
+            } else {
+                mensajePapaNoel.textContent = '';
+            }
+        }
+
+        // Evento 'input' para ejecutar la función al escribir en el campo de nombre
+        nombreInput.addEventListener('input', generarMensaje);
+
+        // Llamar a la función una vez al principio para mostrar el mensaje vacío inicialmente
+        generarMensaje();
+    </script>
+</body>
+</html>
