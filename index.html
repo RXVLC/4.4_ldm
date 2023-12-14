@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>4.4</title>
     <style>
+        /* Estilos CSS */
         body {
             display: flex;
             justify-content: center;
@@ -30,8 +31,18 @@
 </head>
 <body>
     <form>
-        <h1 style="color: red;">Carta para Papá Noel</h1>
+        <h1 style="color: red;">Carta para Papá Noel o Reyes Magos</h1>
 
+        <!-- Seleccionar a quién enviar la carta -->
+        <fieldset>
+            <legend>Selecciona a quién enviar la carta</legend>
+            <input type="checkbox" id="papaNoel" name="destination" value="papaNoel">
+            <label for="papaNoel">Papá Noel</label><br>
+            <input type="checkbox" id="reyesMagos" name="destination" value="reyesMagos">
+            <label for="reyesMagos">Reyes Magos</label><br>
+        </fieldset>
+
+        <!-- Datos Personales -->
         <fieldset>
             <legend>Datos Personales</legend>
             <div class="datosPersonales">
@@ -48,6 +59,7 @@
             </div>
         </fieldset>
 
+        <!-- Selección de Regalos -->
         <fieldset>
             <legend>Regalos</legend>
             <div class="presents">
@@ -67,8 +79,9 @@
             </div>
         </fieldset>
 
+        <!-- Ubicación de Recepción de Regalos -->
         <fieldset>
-            <legend>¿Dónde quieres recibir el regalo?</legend>
+            <legend>¿Dónde quieres recibir los regalos?</legend>
             <div class="where">
                 <input type="radio" id="enCasa" name="deliveryLocation" value="enCasa">
                 <label for="enCasa">En casa</label><br>
@@ -77,37 +90,62 @@
             </div>
         </fieldset>
 
+        <!-- Mensaje de Papá Noel o Reyes Magos -->
         <fieldset>
-            <legend>Mensaje de Papá Noel</legend>
+            <legend>Mensaje de Papá Noel o Reyes Magos</legend>
             <div class="congrats" id="greeting">
-                Querido [Nombre del niño], espero que te portes muy bien este año. ¡Felices fiestas y que se cumplan todos tus deseos! 🎅🎁🎄
+                Querido, espero que te hayas portado muy bien este año. ¡Que la alegría de la Navidad inunde tu corazón y que recibas muchos regalos! 🎅🎁🎄
             </div>
         </fieldset>
+        
+        <!-- Botón de Envío -->
+        <input type="submit" value="Enviar carta">
     </form>
 
-    <!-- chorradas mías -->
     <script>
-        // Obtener el campo de nombre y el elemento del mensaje de Papá Noel
+        // Obtener elementos del formulario
         const nombreInput = document.getElementById('name');
+        const destinoCheckboxes = document.querySelectorAll('input[name="destination"]');
         const mensajePapaNoel = document.getElementById('greeting');
 
         // Función para generar el mensaje
         function generarMensaje() {
-            // Obtener el valor ingresado en el campo de nombre
             const nombre = nombreInput.value.trim();
+            let destinos = [];
+            destinoCheckboxes.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    destinos.push(checkbox.value);
+                }
+            });
 
-            // Mostrar el mensaje de Papá Noel con el nombre
-            if (nombre !== null) {
-                mensajePapaNoel.textContent = `Querido ${nombre}, espero que te portes muy bien este año. ¡Felices fiestas y que se cumplan todos tus deseos! 🎅🎁🎄`;
-            } else {
-                mensajePapaNoel.textContent = '';
+            let mensaje = '';
+            if (nombre !== '') {
+                mensaje += `Querido ${nombre}, `;
             }
+            
+            if (destinos.length === 0) {
+                mensaje += 'espero que te hayas portado muy bien este año. ¡Que la alegría de la Navidad inunde tu corazón y que recibas muchos regalos! 🎅🎁🎄';
+            } else {
+                mensaje += `espero que te hayas portado muy bien este año con `;
+                if (destinos.length === 1) {
+                    mensaje += `${destinos[0] === 'papaNoel' ? 'Papá Noel' : 'los Reyes Magos'}. ¡Felices fiestas y que se cumplan todos sus deseos! 🎅👑🎁🎄`;
+                } else {
+                    mensaje += `Papá Noel y los Reyes Magos. ¡Felices fiestas y que se cumplan todos sus deseos! 🎅👑🎁🎄`;
+                }
+            }
+
+            mensajePapaNoel.textContent = mensaje;
         }
 
         // Evento 'input' para ejecutar la función al escribir en el campo de nombre
         nombreInput.addEventListener('input', generarMensaje);
 
-        // Llamar a la función una vez al principio para mostrar el mensaje vacío inicialmente
+        // Evento 'change' para ejecutar la función al cambiar la selección del destino
+        destinoCheckboxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', generarMensaje);
+        });
+
+        // Llamar a la función una vez al principio para mostrar el mensaje inicial
         generarMensaje();
     </script>
 </body>
